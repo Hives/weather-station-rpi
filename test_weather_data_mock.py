@@ -1,9 +1,9 @@
+from freezegun import freeze_time
 import pytest
-import unittest
 
 from datetime import datetime
 
-from weather_data_mock import *
+from weather_data_mock import WeatherDataMock
 
 def test_class_instance():
   weather = WeatherDataMock()
@@ -21,9 +21,9 @@ def test_temperature_has_a_value():
   temp = data["temperature"]
   assert type(temp["value"]) == float
 
-@pytest.mark.freeze_time
+@freeze_time("2019-05-14 14:44:37")
 def test_temperature_has_the_date():
   weather = WeatherDataMock()
   data = weather.get()
-  temp = data["temperature"]
-  assert temp["date"] == datetime.now()
+  temperature = data["temperature"]
+  assert temperature["date"] == datetime.now()
