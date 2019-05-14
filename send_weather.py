@@ -1,4 +1,6 @@
 from weather_data_mock import *
+import json
+import requests
 
 class SendWeatherData:
 
@@ -6,5 +8,5 @@ class SendWeatherData:
     self.weather = weather_data_mock
 
   def pushData(self):
-    return self.weather.get()
-    # make an http puts request to the server
+    data_string = json.dumps(self.weather.get())
+    return requests.post('randomurl.com', data={'data': data_string})
