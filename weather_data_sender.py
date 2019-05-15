@@ -2,7 +2,7 @@ from weather_data_mock import *
 import json
 import requests
 
-class SendWeatherData:
+class WeatherDataSender:
 
   api_url = 'https://fb724921.ngrok.io/api/data'
 
