@@ -10,20 +10,23 @@ def test_class_instance():
   if isinstance(weather, WeatherDataMock):
     print('It is an instance')
 
-def test_get_method_returns_temperature():
+def test_get_method_returns_dict_including_temperature():
   weather = WeatherDataMock()
   data = weather.get()
-  assert 'temperature' in data
+  assert type(data['temperature']) == float
 
-def test_temperature_has_a_value():
+def test_get_method_returns_dict_including_pressure():
   weather = WeatherDataMock()
   data = weather.get()
-  temp = data["temperature"]
-  assert type(temp["value"]) == float
+  assert type(data['pressure']) == float
+
+def test_get_method_returns_dict_including_humidity():
+  weather = WeatherDataMock()
+  data = weather.get()
+  assert type(data['humidity']) == float
 
 @freeze_time("2019-05-14 14:44:37")
 def test_temperature_has_the_date():
   weather = WeatherDataMock()
   data = weather.get()
-  temperature = data["temperature"]
-  assert temperature["date"] == datetime.now()
+  assert data["date"] == datetime.now()

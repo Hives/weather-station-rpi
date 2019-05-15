@@ -1,10 +1,10 @@
-import json
-
+import pytest
+import requests
 from unittest import TestCase
 from unittest.mock import patch
-from send_weather import SendWeatherData
+# import requests_mock
 
-import requests
+from send_weather import SendWeatherData
 
 class TestAnalytics(TestCase):
 
@@ -19,3 +19,4 @@ class TestAnalytics(TestCase):
     send.pushData()
     
     mock_post.assert_called_with("randomurl.com", data={'data': '{"some key": "some value"}'})
+    
