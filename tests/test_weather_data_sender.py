@@ -2,7 +2,8 @@ import pytest
 import requests
 from unittest import TestCase
 from unittest.mock import patch
-# import requests_mock
+import sys
+sys.path.append('./lib/')
 
 from weather_data_sender import WeatherDataSender
 
