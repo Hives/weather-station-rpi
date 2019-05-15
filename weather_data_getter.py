@@ -9,8 +9,8 @@ class WeatherDataReader:
   bus = smbus2.SMBus(port) # var for connection to port
 
   def get(self):
-    bme280.load_calibration_params(self.bus, address) # load current calibration settings on bme280 before sampling
-    sensor_data = bme280.sample(bus, address) # bme280 library method to take a sample and store into variable as dictionary
+    bme280.load_calibration_params(self.bus,self.address) # load current calibration settings on bme280 before sampling
+    sensor_data = bme280.sample(self.bus, self.address) # bme280 library method to take a sample and store into variable as dictionary
 
     # access that dictionary for the sample data
     ambient_temperature = sensor_data.temperature
@@ -28,4 +28,4 @@ class WeatherDataReader:
 
 
 
-print(ambient_temperature, humidity, pressure) # print the data vars!
+# print(ambient_temperature, humidity, pressure) # print the data vars!

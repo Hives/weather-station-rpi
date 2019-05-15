@@ -10,6 +10,7 @@ bme280.load_calibration_params(bus, address)
 
 while True:
     sensor_data = bme280.sample(bus, address)
+    print(sensor_data)
     ambient_temperature = sensor_data.temperature
     humidity = sensor_data.humidity
     pressure = sensor_data.pressure
