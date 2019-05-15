@@ -2,9 +2,6 @@ import pytest
 import requests
 from unittest import TestCase
 from unittest.mock import patch
-# import requests_mock
-
-from weather_data_sender import WeatherDataSender
 
 class WeatherDataMockMock:
   def get(self):
@@ -12,18 +9,23 @@ class WeatherDataMockMock:
       "some key": "some value"
     }
 
+class WeatherDataSenderMock:
+  test_api_url = 'www.raspberrypisender.com'
+  def pushData(self):
+    requests.post(self.test_api_url, data={'data': '{"test key": "test value"}'})
+
 class TestAnalytics(TestCase):
+  def test_class_has_correct_api_url(self):
+    sender = WeatherDataSenderMock()
+    assert sender.test_api_url == 'www.raspberrypisender.com'
 
   @patch('requests.post')
-  def test_post_method(self, mock_post):
-    sender = WeatherDataSender(WeatherDataMockMock())
-    sender.pushData()
+  def test_sender_mock(self, mock_post):
+    test_sender = WeatherDataSenderMock()
+    test_sender.pushData()
+    url = WeatherDataSenderMock.test_api_url
+  
+    mock_post.assert_called_with(url, data={'data': '{"test key": "test value"}'})
 
-    url = WeatherDataSender.api_url
-    
-    mock_post.assert_called_with(url, data={'data': '{"some key": "some value"}'})
 
-  def test_class_has_correct_api_url(self):
-    sender = WeatherDataSender(WeatherDataMockMock())
-    assert sender.api_url == "https://fb724921.ngrok.io/api/data"
     
