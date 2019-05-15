@@ -29,4 +29,4 @@ def test_get_method_returns_dict_including_humidity():
 def test_temperature_has_the_date():
   weather = WeatherDataMock()
   data = weather.get()
-  assert data["date"] == datetime.now()
+  assert data["date"] == datetime.now().timestamp()
