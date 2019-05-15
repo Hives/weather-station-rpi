@@ -2,6 +2,7 @@ from freezegun import freeze_time
 import pytest
 import sys
 sys.path.append('./lib/')
+
 from datetime import datetime
 
 from weather_data_mock import WeatherDataMock
