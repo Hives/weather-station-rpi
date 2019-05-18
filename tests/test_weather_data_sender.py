@@ -1,35 +1,22 @@
-import requests
-from unittest import TestCase
-from unittest.mock import patch
 import sys
 sys.path.append('./lib/')
+import requests
+from weather_data_sender import WeatherDataSender
+from unittest import TestCase
+from unittest.mock import patch
 
 
-class WeatherDataMockMock:
-    def get(self):
-        return {
-            "some key": "some value"
-        }
+class WeatherDataReaderMock:
+    def extract_data(self):
+        return { "test key": "test value" }
 
+@patch('requests.post')
+def test_sender_mock(mock_post_request):
 
-class WeatherDataSenderMock:
-    test_api_url = 'www.raspberrypisender.com'
+    sender = WeatherDataSender(WeatherDataReaderMock)
+    sender.push_data()
+    url = WeatherDataSender.api_url
 
-    def pushData(self):
-        requests.post(self.test_api_url, data={
-                      'data': '{"test key": "test value"}'})
+    mock_post_request.assert_called_with(
+            url, data = { 'data': '{"test key": "test value"}' })
 
-
-class TestAnalytics(TestCase):
-    def test_class_has_correct_api_url(self):
-        sender = WeatherDataSenderMock()
-        assert sender.test_api_url == 'www.raspberrypisender.com'
-
-    @patch('requests.post')
-    def test_sender_mock(self, mock_post):
-        test_sender = WeatherDataSenderMock()
-        test_sender.pushData()
-        url = WeatherDataSenderMock.test_api_url
-
-        mock_post.assert_called_with(
-            url, data={'data': '{"test key": "test value"}'})
