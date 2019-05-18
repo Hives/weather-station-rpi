@@ -11,6 +11,7 @@ class WeatherDataSender:
         self.weather = weather_data_reader
 
     def pushData(self):
+        self.weather.readSensor()
         data_string = json.dumps(self.weather.get())
         print("POST-ing data to %s" % (self.api_url))
         response = requests.post(self.api_url, data={'data': data_string})
