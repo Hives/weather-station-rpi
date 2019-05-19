@@ -1,16 +1,23 @@
-from weather_data_getter import *
+from weather_data_reader import WeatherDataReader
 import json
 import requests
 
+
 class WeatherDataSender:
 
-  api_url = 'https://36a788a2.ngrok.io/api/data'
+    api_url = 'https://quiet-everglades-27917.herokuapp.com/api/data'
 
-  def __init__(self, weather_data_reader = WeatherDataReader()):
-    self.weather = weather_data_reader
+    def __init__(self, weather_data_reader=WeatherDataReader):
+        self.weather_data_reader = weather_data_reader()
 
-  def pushData(self):
-    data_string = json.dumps(self.weather.get())
-    print("POST-ing data to %s" %(self.api_url))
-    response = requests.post(self.api_url, data={'data': data_string})
-    print(response)
+    def push_data(self):
+        weather_record = self.__get_data()
+        print("POST-ing data to %s" % (self.api_url))
+        response = requests.post(self.api_url, data={'data': weather_record})
+        print(response)
+
+    def __get_data(self):
+        return json.dumps(self.weather_data_reader.extract_data())
+
+if __name__ == "__main__":
+    WeatherDataSender().push_data()
