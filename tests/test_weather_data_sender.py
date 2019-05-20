@@ -17,6 +17,4 @@ def test_sender_mock(mock_post_request):
     sender.push_data()
     url = WeatherDataSender.api_url
 
-    mock_post_request.assert_called_with(
-            url, data = { 'data': '{"test key": "test value"}' })
-
+    mock_post_request.assert_called_with(url, json = { "test key": "test value" })

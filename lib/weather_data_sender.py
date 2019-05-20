@@ -2,7 +2,6 @@ from weather_data_reader import WeatherDataReader
 import json
 import requests
 
-import pprint
 
 class WeatherDataSender:
 

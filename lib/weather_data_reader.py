@@ -1,7 +1,6 @@
 import bme280  # Import library of methods for sensor
 import smbus2  # Import library to read RPi system bus
 from datetime import datetime
-import pprint
 
 
 class WeatherDataReader:
