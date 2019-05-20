@@ -16,12 +16,14 @@ class WeatherDataReader:
     def extract_data(self):
         sensor_data = self.__read_sensor()
 
-        return {
+        weather_data = {
             "temperature": sensor_data.temperature,
             "pressure": sensor_data.pressure,
             "humidity": sensor_data.humidity,
             "date": datetime.now().timestamp()
         }
+
+        return weather_data
 
     def __read_sensor(self):
         return self.sensor.sample(self.bus, self.address)
